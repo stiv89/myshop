@@ -1,0 +1,458 @@
+{% comment %}
+  SECCIÓN SOCIAL MEDIA FEED - Integración Instagram/TikTok
+  Muestra contenido social de la marca y usuarios
+{% endcomment %}
+
+<section class="youth-section youth-social-section" id="social-feed">
+  <div class="section-container">
+    <h2 class="youth-section-title">
+      {{ section.settings.section_title | default: "#TUESTILOTUACTITUD" | escape }}
+    </h2>
+    
+    {% if section.settings.section_subtitle != blank %}
+      <p class="youth-section-subtitle">
+        {{ section.settings.section_subtitle | escape }}
+      </p>
+    {% endif %}
+    
+    <div class="youth-social-grid">
+      {% comment %} Posts de Instagram/TikTok {% endcomment %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'social_post' %}
+            <div class="youth-social-card" data-platform="{{ block.settings.platform }}">
+              <div class="youth-social-media">
+                {% if block.settings.media_type == 'image' %}
+                  <img 
+                    src="{{ block.settings.image | image_url: width: 400 }}" 
+                    alt="{{ block.settings.image.alt | escape }}"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                  >
+                {% elsif block.settings.media_type == 'video' and block.settings.video_url != blank %}
+                  <div class="youth-video-container">
+                    <iframe 
+                      src="{{ block.settings.video_url }}"
+                      frameborder="0"
+                      allowfullscreen
+                    ></iframe>
+                    <div class="youth-play-overlay">
+                      <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+                        <path d="M8 5V19L19 12L8 5Z"/>
+                      </svg>
+                    </div>
+                  </div>
+                {% endif %}
+                
+                <div class="youth-social-overlay">
+                  <div class="youth-social-platform">
+                    {% if block.settings.platform == 'instagram' %}
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 2.163C15.204 2.163 15.584 2.175 16.85 2.233C18.102 2.291 18.796 2.501 19.291 2.678C19.922 2.915 20.37 3.195 20.834 3.659C21.298 4.123 21.578 4.571 21.815 5.202C21.992 5.697 22.202 6.391 22.26 7.643C22.318 8.909 22.33 9.289 22.33 12.493S22.318 16.077 22.26 17.343C22.202 18.595 21.992 19.289 21.815 19.784C21.578 20.415 21.298 20.863 20.834 21.327C20.37 21.791 19.922 22.071 19.291 22.308C18.796 22.485 18.102 22.695 16.85 22.753C15.584 22.811 15.204 22.823 12 22.823S8.416 22.811 7.15 22.753C5.898 22.695 5.204 22.485 4.709 22.308C4.078 22.071 3.63 21.791 3.166 21.327C2.702 20.863 2.422 20.415 2.185 19.784C2.008 19.289 1.798 18.595 1.74 17.343C1.682 16.077 1.67 15.697 1.67 12.493S1.682 8.909 1.74 7.643C1.798 6.391 2.008 5.697 2.185 5.202C2.422 4.571 2.702 4.123 3.166 3.659C3.63 3.195 4.078 2.915 4.709 2.678C5.204 2.501 5.898 2.291 7.15 2.233C8.416 2.175 8.796 2.163 12 2.163ZM12 0C8.741 0 8.333 0.014 7.053 0.072C5.775 0.13 4.905 0.333 4.14 0.63C3.351 0.936 2.681 1.347 2.014 2.014C1.347 2.681 0.936 3.351 0.63 4.14C0.333 4.905 0.13 5.775 0.072 7.053C0.014 8.333 0 8.741 0 12S0.014 15.667 0.072 16.947C0.13 18.225 0.333 19.095 0.63 19.86C0.936 20.649 1.347 21.319 2.014 21.986C2.681 22.653 3.351 23.064 4.14 23.37C4.905 23.667 5.775 23.87 7.053 23.928C8.333 23.986 8.741 24 12 24S15.667 23.986 16.947 23.928C18.225 23.87 19.095 23.667 19.86 23.37C20.649 23.064 21.319 22.653 21.986 21.986C22.653 21.319 23.064 20.649 23.37 19.86C23.667 19.095 23.87 18.225 23.928 16.947C23.986 15.667 24 15.259 24 12S23.986 8.333 23.928 7.053C23.87 5.775 23.667 4.905 23.37 4.14C23.064 3.351 22.653 2.681 21.986 2.014C21.319 1.347 20.649 0.936 19.86 0.63C19.095 0.333 18.225 0.13 16.947 0.072C15.667 0.014 15.259 0 12 0Z"/>
+                        <path d="M12 5.838C8.597 5.838 5.838 8.597 5.838 12S8.597 18.162 12 18.162 18.162 15.403 18.162 12 15.403 5.838 12 5.838ZM12 16C9.791 16 8 14.209 8 12S9.791 8 12 8 16 9.791 16 12 14.209 16 12 16Z"/>
+                        <circle cx="18.406" cy="5.594" r="1.44"/>
+                      </svg>
+                    {% elsif block.settings.platform == 'tiktok' %}
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M19.589 6.686C18.793 6.249 18.187 5.556 17.886 4.728V4.727C17.638 4.071 17.638 3.355 17.886 2.699H14.195V16.294C14.195 17.829 12.936 19.088 11.401 19.088C9.866 19.088 8.607 17.829 8.607 16.294C8.607 14.759 9.866 13.5 11.401 13.5C11.691 13.5 11.972 13.545 12.235 13.628V9.862C11.982 9.832 11.723 9.816 11.461 9.816C7.717 9.816 4.677 12.856 4.677 16.6C4.677 20.344 7.717 23.384 11.461 23.384C15.205 23.384 18.245 20.344 18.245 16.6V8.677C19.439 9.541 20.882 10.026 22.401 10.026V6.334C21.548 6.334 20.763 6.096 20.095 5.695L19.589 6.686Z"/>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="youth-social-engagement">
+                    {% if block.settings.likes != blank %}
+                      <span class="youth-likes">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                          <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z"/>
+                        </svg>
+                        {{ block.settings.likes }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              
+              <div class="youth-social-content">
+                {% if block.settings.caption != blank %}
+                  <p class="youth-social-caption">{{ block.settings.caption | escape }}</p>
+                {% endif %}
+                
+                {% if block.settings.user_handle != blank %}
+                  <div class="youth-social-user">
+                    <span class="youth-user-handle">@{{ block.settings.user_handle | escape }}</span>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.post_url != blank %}
+                  <a href="{{ block.settings.post_url }}" 
+                     target="_blank" 
+                     class="youth-social-link"
+                     rel="noopener">
+                    Ver post original
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+            
+          {% when 'ugc_showcase' %}
+            <div class="youth-ugc-card">
+              <div class="youth-ugc-media">
+                <img 
+                  src="{{ block.settings.image | image_url: width: 400 }}" 
+                  alt="{{ block.settings.image.alt | escape }}"
+                  loading="lazy"
+                >
+                
+                <div class="youth-ugc-overlay">
+                  <div class="youth-ugc-tag">
+                    {% if block.settings.featured_product %}
+                      <a href="{{ block.settings.featured_product.url }}" class="youth-product-tag">
+                        <span>{{ block.settings.featured_product.title | truncate: 20 | escape }}</span>
+                        <span class="youth-product-price">{{ block.settings.featured_product.price | money }}</span>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+      
+      {% comment %} Placeholder cards si no hay contenido {% endcomment %}
+      {% if section.blocks.size == 0 %}
+        {% for i in (1..6) %}
+          <div class="youth-social-card youth-placeholder">
+            <div class="youth-social-media youth-shimmer"></div>
+            <div class="youth-social-content">
+              <div class="youth-shimmer" style="height: 16px; margin-bottom: 8px;"></div>
+              <div class="youth-shimmer" style="height: 12px; width: 60%;"></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    {% if section.settings.show_follow_button %}
+      <div class="youth-section-footer">
+        {% if section.settings.instagram_handle != blank %}
+          <a href="https://instagram.com/{{ section.settings.instagram_handle }}" 
+             target="_blank" 
+             class="btn-youth-secondary"
+             rel="noopener">
+            Síguenos en Instagram @{{ section.settings.instagram_handle | escape }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .youth-social-section {
+    background: linear-gradient(180deg, #f8f8f8 0%, white 100%);
+  }
+  
+  .youth-social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-youth-md);
+    margin-bottom: var(--spacing-youth-lg);
+  }
+  
+  .youth-social-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: var(--youth-transition);
+  }
+  
+  .youth-social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  }
+  
+  .youth-social-media {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+  
+  .youth-social-media img,
+  .youth-video-container {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .youth-video-container {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .youth-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--youth-transition);
+  }
+  
+  .youth-video-container:hover .youth-play-overlay {
+    background: rgba(0,0,0,0.8);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  
+  .youth-social-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 60%, rgba(0,0,0,0.7));
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  
+  .youth-social-platform {
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    padding: 8px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .youth-social-engagement {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .youth-likes {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  .youth-social-content {
+    padding: var(--spacing-youth-sm);
+  }
+  
+  .youth-social-caption {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #333;
+    margin-bottom: var(--spacing-youth-xs);
+    font-family: var(--font-youth-body);
+  }
+  
+  .youth-user-handle {
+    color: var(--youth-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  
+  .youth-social-link {
+    display: inline-block;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-top: var(--spacing-youth-xs);
+    border-bottom: 1px solid #ddd;
+    transition: var(--youth-transition);
+  }
+  
+  .youth-social-link:hover {
+    color: var(--youth-primary);
+    border-color: var(--youth-primary);
+  }
+  
+  .youth-ugc-card {
+    position: relative;
+  }
+  
+  .youth-ugc-overlay {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+  
+  .youth-product-tag {
+    background: rgba(255,255,255,0.95);
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.8);
+    transition: var(--youth-transition);
+  }
+  
+  .youth-product-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  
+  .youth-product-price {
+    font-weight: 700;
+    color: var(--youth-primary);
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .youth-social-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-youth-sm);
+    }
+    
+    .youth-social-card {
+      border-radius: 16px;
+    }
+    
+    .youth-social-content {
+      padding: 12px;
+    }
+    
+    .youth-social-caption {
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Youth Social Feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título de sección",
+      "default": "#TUESTILOTUACTITUD"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Subtítulo",
+      "default": "Descubre cómo nuestros clientes lucen increíbles"
+    },
+    {
+      "type": "text",
+      "id": "instagram_handle",
+      "label": "Instagram handle",
+      "info": "Sin el @, ejemplo: tutienda"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_follow_button",
+      "label": "Mostrar botón seguir",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_post",
+      "name": "Post social",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Plataforma",
+          "options": [
+            {"value": "instagram", "label": "Instagram"},
+            {"value": "tiktok", "label": "TikTok"}
+          ],
+          "default": "instagram"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Tipo de contenido",
+          "options": [
+            {"value": "image", "label": "Imagen"},
+            {"value": "video", "label": "Video"}
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "URL del video (embed)"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption/Descripción"
+        },
+        {
+          "type": "text",
+          "id": "user_handle",
+          "label": "Usuario (sin @)"
+        },
+        {
+          "type": "text",
+          "id": "likes",
+          "label": "Número de likes",
+          "info": "Ejemplo: 1.2K"
+        },
+        {
+          "type": "url",
+          "id": "post_url",
+          "label": "URL del post original"
+        }
+      ]
+    },
+    {
+      "type": "ugc_showcase",
+      "name": "Contenido de usuario",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "product",
+          "id": "featured_product",
+          "label": "Producto destacado"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Youth Social Feed",
+      "blocks": [
+        {"type": "social_post"},
+        {"type": "social_post"},
+        {"type": "ugc_showcase"},
+        {"type": "social_post"},
+        {"type": "ugc_showcase"},
+        {"type": "social_post"}
+      ]
+    }
+  ]
+}
+{% endschema %}

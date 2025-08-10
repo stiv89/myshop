@@ -1,90 +1,36 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
-      "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+    "youth_hero": {
+      "type": "youth-hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "hero_title": "TU ESTILO, TU ACTITUD",
+        "hero_subtitle": "Descubre la moda urbana que habla tu idioma. Prendas únicas para jóvenes únicos.",
+        "primary_button_label": "DESCUBRE TU LOOK",
+        "primary_button_link": "/collections/all",
+        "secondary_button_label": "VER NOVEDADES",
+        "secondary_button_link": "/collections"
       }
     },
-    "product_list_fa6P9H": {
+    "youth_quick_links": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"youth-quick-links\">\n  <div class=\"section-container\">\n    <div class=\"youth-links-grid\">\n      <a href=\"/collections\" class=\"youth-quick-link\" style=\"background: linear-gradient(135deg, #FF6B35, #FFD23F);\">\n        <div class=\"youth-link-content\">\n          <span class=\"youth-link-emoji\">🔥</span>\n          <h3>NUEVO</h3>\n          <p>Últimas tendencias</p>\n        </div>\n      </a>\n      <a href=\"/collections/all\" class=\"youth-quick-link\" style=\"background: linear-gradient(135deg, #004225, #00664A);\">\n        <div class=\"youth-link-content\">\n          <span class=\"youth-link-emoji\">⭐</span>\n          <h3>LO MÁS VENDIDO</h3>\n          <p>Favoritos del momento</p>\n        </div>\n      </a>\n      <a href=\"/collections/all\" class=\"youth-quick-link\" style=\"background: linear-gradient(135deg, #FFD23F, #FF6B35);\">\n        <div class=\"youth-link-content\">\n          <span class=\"youth-link-emoji\">💸</span>\n          <h3>OFERTAS</h3>\n          <p>Hasta 50% OFF</p>\n        </div>\n      </a>\n      <a href=\"/collections/all\" class=\"youth-quick-link\" style=\"background: linear-gradient(135deg, #1A1A1A, #333);\">\n        <div class=\"youth-link-content\">\n          <span class=\"youth-link-emoji\">👕</span>\n          <h3>LOOKS</h3>\n          <p>Inspiración diaria</p>\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n\n<style>\n.youth-quick-links {\n  padding: 60px 20px;\n}\n\n.youth-links-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n  gap: 20px;\n  max-width: 1000px;\n  margin: 0 auto;\n}\n\n.youth-quick-link {\n  display: block;\n  text-decoration: none;\n  border-radius: 20px;\n  padding: 30px 20px;\n  color: white;\n  transition: all 0.3s ease;\n  text-align: center;\n  position: relative;\n  overflow: hidden;\n}\n\n.youth-quick-link:hover {\n  transform: translateY(-8px);\n  box-shadow: 0 20px 40px rgba(0,0,0,0.2);\n}\n\n.youth-link-content {\n  position: relative;\n  z-index: 2;\n}\n\n.youth-link-emoji {\n  font-size: 2.5rem;\n  display: block;\n  margin-bottom: 10px;\n}\n\n.youth-quick-link h3 {\n  font-family: 'Poppins', sans-serif;\n  font-weight: 800;\n  font-size: 1.2rem;\n  margin: 10px 0 5px;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n\n.youth-quick-link p {\n  font-size: 0.9rem;\n  opacity: 0.9;\n  margin: 0;\n}\n\n@media (max-width: 768px) {\n  .youth-links-grid {\n    grid-template-columns: repeat(2, 1fr);\n    gap: 15px;\n  }\n  \n  .youth-quick-link {\n    padding: 25px 15px;\n  }\n  \n  .youth-link-emoji {\n    font-size: 2rem;\n  }\n  \n  .youth-quick-link h3 {\n    font-size: 1rem;\n  }\n}\n</style>",
+        "color_scheme": "scheme-1",
+        "section_width": "page-width"
+      }
+    },
+    "youth_trending": {
+      "type": "youth-trending",
+      "settings": {
+        "section_title": "TRENDING NOW 🔥",
+        "section_subtitle": "Los productos que todo el mundo quiere ahora mismo",
+        "collection": "all",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "view_all_text": "VER TODO EL HYPE"
+      }
+    },
+    "product_list_backup": {
       "type": "product-list",
       "blocks": {
         "static-header": {
@@ -125,7 +71,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h3>Más productos destacados</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -151,7 +97,7 @@
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
-                "label": "View all",
+                "label": "Ver todo",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -262,7 +208,7 @@
         "collection": "all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 8,
+        "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
@@ -280,7 +226,9 @@
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "youth_hero",
+    "youth_quick_links", 
+    "youth_trending",
+    "product_list_backup"
   ]
 }

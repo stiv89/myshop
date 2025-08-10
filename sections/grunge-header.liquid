@@ -1,0 +1,436 @@
+{% comment %}
+  GRUNGE HEADER - Estilo underground con tipografía stencil
+  Updated for proper Shopify sync
+{% endcomment %}
+
+<header class="hdr hdr--grunge" id="header-grunge">
+  <div class="hdr__inner">
+    {% comment %} Logo tipográfico {% endcomment %}
+    <a href="{{ routes.root_url }}" class="brand">
+      {% if settings.logo %}
+        <img src="{{ settings.logo | image_url: width: 120 }}" 
+             alt="{{ shop.name | escape }}" 
+             class="brand__logo">
+      {% else %}
+        <span class="brand__text">{{ shop.name | upcase | truncate: 12 }}</span>
+      {% endif %}
+      <span class="brand__tag">NEW</span>
+    </a>
+
+    {% comment %} Navegación principal {% endcomment %}
+    <nav class="main-nav">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" class="nav__link">
+          {{ link.title | upcase }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    {% comment %} Íconos de acción {% endcomment %}
+    <div class="hdr__icons">
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="icon icon--account" title="Mi cuenta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      {% endif %}
+      
+      <a href="{{ routes.search_url }}" class="icon icon--search" title="Buscar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </a>
+      
+      <a href="{{ routes.cart_url }}" class="icon icon--cart cart" title="Carrito">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
+          <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
+          <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="cart__badge">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+      
+      {% comment %} Menú móvil hamburger {% endcomment %}
+      <button class="icon icon--menu mobile-menu-toggle" type="button" aria-label="Menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {% comment %} Textura de ruido {% endcomment %}
+  <div class="hdr__noise"></div>
+  
+  {% comment %} Menú móvil desplegable {% endcomment %}
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav__inner">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" class="mobile-nav__link">
+          {{ link.title | upcase }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</header>
+
+<style>
+/* Variables grunge */
+:root {
+  --grunge-bg: #0a0a0a;
+  --grunge-fg: #ffffff;
+  --grunge-accent: #28ffd3; /* Cian flúo - cambiá por #ff0080 (fucsia) o #ccff00 (lima) */
+  --grunge-gray: rgba(255, 255, 255, 0.7);
+  --grunge-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Header principal */
+.hdr--grunge {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--grunge-bg);
+  color: var(--grunge-fg);
+  border-bottom: 1px solid var(--grunge-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.hdr__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Logo */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.brand__text {
+  font-family: "Bebas Neue", "Anton", sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--grunge-fg);
+  transform: rotate(-0.4deg);
+  transition: all 0.18s ease;
+}
+
+.brand__text:hover {
+  transform: rotate(0deg) translateY(-1px);
+  color: var(--grunge-accent);
+}
+
+.brand__logo {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  transition: all 0.18s ease;
+}
+
+.brand__logo:hover {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--grunge-accent));
+  transform: rotate(-1deg);
+}
+
+.brand__tag {
+  font: 600 0.65rem/1 "Inter", system-ui;
+  color: #111;
+  background: var(--grunge-accent);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  transform: rotate(-5deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Navegación */
+.main-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav__link {
+  position: relative;
+  font: 600 0.93rem/1 "Inter", system-ui;
+  color: var(--grunge-fg);
+  text-decoration: none;
+  opacity: 0.9;
+  padding: 0.2rem 0.1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.nav__link:hover {
+  opacity: 1;
+  color: var(--grunge-accent);
+}
+
+/* Subrayado "pintado" */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--grunge-accent), transparent 60%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease-out;
+  filter: contrast(140%) brightness(110%);
+  border-radius: 1px;
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Íconos */
+.hdr__icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  color: var(--grunge-fg);
+  text-decoration: none;
+  opacity: 0.9;
+  transition: all 0.15s ease;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+.icon:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  color: var(--grunge-accent);
+}
+
+.icon svg {
+  display: block;
+}
+
+.cart__badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  padding: 0 5px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--grunge-accent);
+  color: #111;
+  font: 700 0.7rem/18px "Inter", system-ui;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--grunge-bg);
+}
+
+/* Textura/grain */
+.hdr__noise {
+  pointer-events: none;
+  position: absolute;
+  inset: -6px 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent 20%, 
+    rgba(255, 255, 255, 0.05), 
+    transparent 40%,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+/* Menú móvil */
+.icon--menu {
+  display: none;
+}
+
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--grunge-bg);
+  border-top: 1px solid var(--grunge-border);
+  z-index: 40;
+}
+
+.mobile-nav.active {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+.mobile-nav__inner {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mobile-nav__link {
+  font: 600 1rem/1.2 "Inter", system-ui;
+  color: var(--grunge-fg);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav__link:hover {
+  opacity: 1;
+  color: var(--grunge-accent);
+  padding-left: 0.5rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-nav {
+    display: none;
+  }
+  
+  .icon--menu {
+    display: block;
+  }
+  
+  .brand__text {
+    font-size: 1.5rem;
+  }
+  
+  .hdr__inner {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Estados de scroll */
+.hdr--grunge.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+}
+
+/* Variaciones de color del acento */
+.hdr--grunge.accent-lime {
+  --grunge-accent: #ccff00;
+}
+
+.hdr--grunge.accent-pink {
+  --grunge-accent: #ff0080;
+}
+
+.hdr--grunge.accent-cyan {
+  --grunge-accent: #28ffd3;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const header = document.getElementById('header-grunge');
+  
+  if (menuToggle && mobileNav) {
+    menuToggle.addEventListener('click', function() {
+      mobileNav.classList.toggle('active');
+      
+      // Cambiar ícono
+      const svg = this.querySelector('svg');
+      if (mobileNav.classList.contains('active')) {
+        svg.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+      } else {
+        svg.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+      }
+    });
+  }
+  
+  // Scroll effect
+  let lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+  });
+  
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!header.contains(e.target) && mobileNav.classList.contains('active')) {
+      mobileNav.classList.remove('active');
+      const menuIcon = menuToggle.querySelector('svg');
+      menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Grunge Header",
+  "settings": [
+    {
+      "type": "select",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "options": [
+        {"value": "cyan", "label": "Cian flúo"},
+        {"value": "pink", "label": "Fucsia flúo"}, 
+        {"value": "lime", "label": "Lima flúo"}
+      ],
+      "default": "cyan"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Mostrar búsqueda",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Mostrar cuenta",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
